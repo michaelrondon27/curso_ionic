@@ -9,10 +9,21 @@ export class Pagina3Page {
 
   mutante: any = {};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams
+  ) {
 
     this.mutante = this.navParams.get("mutante");
 
+  }
+
+  irAtras() {
+    this.navCtrl.pop();
+  }
+
+  irRoot() {
+    this.navCtrl.popToRoot();
   }
 
 }

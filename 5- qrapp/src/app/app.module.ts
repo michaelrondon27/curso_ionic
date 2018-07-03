@@ -14,6 +14,7 @@ import {
 
 // Plugins
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 // Providers
 import { HistorialProvider } from '../providers/historial/historial';
@@ -43,6 +44,7 @@ import { HistorialProvider } from '../providers/historial/historial';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     BarcodeScanner,
+    InAppBrowser,
     HistorialProvider
   ]
 })

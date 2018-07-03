@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+
+import { HistorialProvider} from '../../providers/historial/historial';
+import { ScanData} from '../../models/scan-data.model';
 
 @Component({
   selector: 'page-guardados',
@@ -7,11 +9,23 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class GuardadosPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  historial: ScanData[] = [];
+
+  constructor(
+    private _historialService: HistorialProvider
+  ) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad GuardadosPage');
+
+    this.historial = this._historialService.cargar_historial();
+
+  }
+
+  abri_scan( index: number ) {
+
+    this._historialService.abrir_scan( index );
+
   }
 
 }

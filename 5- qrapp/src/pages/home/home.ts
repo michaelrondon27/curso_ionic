@@ -4,7 +4,10 @@ import { Component } from '@angular/core';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 // Components
-import { ToastController } from 'ionic-angular';
+import { ToastController, Platform } from 'ionic-angular';
+
+// Providers
+import { HistorialProvider } from '../../providers/historial/historial';
 
 @Component({
   selector: 'page-home',
@@ -14,13 +17,28 @@ export class HomePage {
 
   constructor(
     private barcodeScanner: BarcodeScanner,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private platform: Platform,
+    private _historialService: HistorialProvider
   ) { }
 
   scan() {
 
+    if ( !this.platform.is('cordova') ) {
+      this._historialService.agregar_historial('http://www.google.co.ve/');
+      return;
+    }
+
     this.barcodeScanner.scan().then( barcodeData => {
-        console.log('Barcode data', barcodeData);
+
+      console.log("Result: ", barcodeData.text );
+      console.log("Format: ", barcodeData.format );
+      console.log("Cancelled: ", barcodeData.cancelled );
+
+      if ( barcodeData.cancelled == 0 && barcodeData.text != null ) {
+        this._historialService.agregar_historial( barcodeData.text );
+      }
+
     }).catch( err => {
 
         this.mostrar_error("Error: " + err);

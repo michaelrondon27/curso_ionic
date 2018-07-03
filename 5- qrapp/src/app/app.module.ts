@@ -15,6 +15,9 @@ import {
 // Plugins
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
+// Providers
+import { HistorialProvider } from '../providers/historial/historial';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -39,7 +42,8 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    BarcodeScanner
+    BarcodeScanner,
+    HistorialProvider
   ]
 })
 export class AppModule {}

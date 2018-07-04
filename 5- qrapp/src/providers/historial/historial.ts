@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { ScanData } from '../../models/scan-data.model';
 
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts';
+
+import { Platform, ToastController } from 'ionic-angular';
 
 @Injectable()
 export class HistorialProvider {
@@ -10,7 +13,10 @@ export class HistorialProvider {
   private _historial: ScanData [] = [];
 
   constructor(
-    private iab: InAppBrowser
+    private iab: InAppBrowser,
+    private contacts: Contacts,
+    private platform: Platform,
+    private toastCtrl: ToastController
   ) { }
 
   agregar_historial( texto: string ) {
@@ -48,7 +54,31 @@ export class HistorialProvider {
 
     let campos: any = this.parse_vcard( texto );
 
-    console.log( campos );
+    let nombre = campos['fn'];
+    let tel = campos.tel[0].value[0];
+
+    if ( !this.platform.is('cordova') ) {
+      return;
+    }
+
+    let contact: Contact = this.contacts.create();
+
+    contact.name = new ContactName(null, nombre);
+    contact.phoneNumbers = [ new ContactField('mobile', tel) ];
+
+    contact.save().then(
+      () => this.crear_toast('Contacto ' + nombre + " creado!"),
+      (error) => this.crear_toast("Error: " + error)
+    );
+
+  }
+
+  private crear_toast( mensaje: string ) {
+
+    this.toastCtrl.create({
+      message: mensaje,
+      duration: 2500
+    }).present();
 
   }
 

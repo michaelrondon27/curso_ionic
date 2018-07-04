@@ -15,6 +15,7 @@ import {
 // Plugins
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { Contacts } from '@ionic-native/contacts';
 
 // Providers
 import { HistorialProvider } from '../providers/historial/historial';
@@ -45,7 +46,8 @@ import { HistorialProvider } from '../providers/historial/historial';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     BarcodeScanner,
     InAppBrowser,
-    HistorialProvider
+    HistorialProvider,
+    Contacts
   ]
 })
 export class AppModule {}

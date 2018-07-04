@@ -43,6 +43,20 @@ export class HistorialProvider {
         this.crear_contacto( scanData.info );
       break;
 
+      case 'email':
+
+        let htmlLink = scanData.info;
+
+        htmlLink = htmlLink.replace('MATMSG:TO:', 'mailto:');
+        htmlLink = htmlLink.replace(':SUB::', '?subject=');
+        htmlLink = htmlLink.replace(';BODY:', '&body=');
+        htmlLink = htmlLink.replace(';;', '');
+        htmlLink = htmlLink.replace(/ /g, '%20');
+
+        this.iab.create( htmlLink, '_system' );
+
+      break;
+
       default:
         console.error('Tipo no soportado');
 

@@ -8,14 +8,14 @@
 
 <ion-content>
 
-  <ion-card>
+  <ion-card *ngFor="let post of posts | async">
 
-    <img src="https://images.pexels.com/photos/414171/pexels-photo-414171.jpeg?auto=compress&cs=tinysrgb&h=650&w=940%201x,%20https://images.pexels.com/photos/414171/pexels-photo-414171.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940%202x">
+    <img [src]="post.img">
 
     <ion-card-content>
 
       <ion-card-title>
-        Post 1
+        {{ post.titulo }}
       </ion-card-title>
 
     </ion-card-content>

@@ -1,12 +1,63 @@
 <ion-header>
 
+
   <ion-navbar>
+
+    <ion-buttons>
+
+      <button ion-button
+              (click)="cerrar_modal()">
+        Cerrar
+      </button>
+
+    </ion-buttons>
+
     <ion-title>Crear Post</ion-title>
+
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label floating>Título</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <img src="https://images.pexels.com/photos/414171/pexels-photo-414171.jpeg?auto=compress&cs=tinysrgb&h=650&w=940%201x,%20https://images.pexels.com/photos/414171/pexels-photo-414171.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940%202x">
+    </ion-item>
+
+  </ion-list>
+
+  <ion-grid>
+
+    <ion-row>
+
+      <ion-col>
+        <button ion-button
+                block
+                icon-left>
+          <ion-icon name="photos"></ion-icon>
+          Seleccionar
+        </button>
+      </ion-col>
+
+      <ion-col>
+        <button ion-button
+                block
+                icon-left>
+          <ion-icon name="camera"></ion-icon>
+          Camara
+        </button>
+      </ion-col>
+
+    </ion-row>
+
+  </ion-grid>
 
 </ion-content>

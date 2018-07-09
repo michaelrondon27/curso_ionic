@@ -17,7 +17,7 @@ export class CargaArchivoProvider {
     public afDB: AngularFireDatabase
   ) {
 
-    this.cargar_ultimo_key();
+    this.cargar_ultimo_key().subscribe( () => this.cargar_imagenes() );
 
   }
 
@@ -32,6 +32,41 @@ export class CargaArchivoProvider {
                 this.imagenes.push( post[0] );
 
               });
+
+  }
+
+  cargar_imagenes() {
+
+    return new Promise( (resolve, reject) => {
+
+      this.afDB.list('/post',
+        ref => ref.limitToLast(3)
+                  .orderByKey()
+                  .endAt( this.lastKey )
+      ).valueChanges()
+      .subscribe( (posts : any) => {
+
+        posts.pop();
+
+        if ( posts.length == 0 ) {
+          resolve(false);
+          return;
+        }
+
+        this.lastKey = posts[0].key;
+
+        for ( let i = posts.length - 1; i >= 0; i-- ) {
+
+          let post = posts[i];
+          this.imagenes.push(post);
+
+        }
+
+        resolve(true);
+
+      });
+
+    });
 
   }
 

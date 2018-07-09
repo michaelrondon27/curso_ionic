@@ -4,6 +4,8 @@ import { ViewController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
 
+import { CargaArchivoProvider } from '../../providers/carga-archivo/carga-archivo';
+
 @Component({
   selector: 'page-subir',
   templateUrl: 'subir.html',
@@ -12,11 +14,13 @@ export class SubirPage {
 
   titulo: string;
   imagenPreview: string;
+  imagen64: string;
 
   constructor(
     private viewCtrl: ViewController,
     private camera: Camera,
-    private imagePicker: ImagePicker
+    private imagePicker: ImagePicker,
+    public _cap: CargaArchivoProvider
   ) {
   }
 
@@ -43,6 +47,7 @@ export class SubirPage {
      // If it's base64 (DATA_URL):
 
      this.imagenPreview = 'data:image/jpeg;base64,' + imageData;
+     this.imagen64 = imageData;
 
     }, (err) => {
 
@@ -64,13 +69,25 @@ export class SubirPage {
 
         for (var i = 0; i < results.length; i++) {
             this.imagenPreview = 'data:image/jpeg;base64,' + results[i];
+            this.imagen64 = results[i];
         }
 
       }, (err) => {
 
         console.log("ERROR en selector", JSON.stringify(err));
-        
+
       });
+
+  }
+
+  crear_post() {
+
+    let archivo = {
+      img: this.imagen64,
+      titulo: this.titulo
+    };
+
+    this._cap.cargar_imagen_firebase( archivo );
 
   }
 

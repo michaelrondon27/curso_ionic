@@ -5,8 +5,7 @@ import {
 
 import { SubirPage } from '../subir/subir';
 
-import { AngularFireDatabase } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
+import { CargaArchivoProvider } from '../../providers/carga-archivo/carga-archivo';
 
 @Component({
   selector: 'page-home',
@@ -14,16 +13,10 @@ import { Observable } from 'rxjs/Observable';
 })
 export class HomePage {
 
-  posts: Observable<any[]>;
-
   constructor(
     private modalCtrl: ModalController,
-    private afDB: AngularFireDatabase
-  ) {
-
-    this.posts = afDB.list('post').valueChanges();
-
-  }
+    public _cap: CargaArchivoProvider
+  ) { }
 
   mostrar_modal() {
 

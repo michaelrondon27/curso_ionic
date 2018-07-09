@@ -86,4 +86,5 @@
     <plugin name="cordova-plugin-telerik-imagepicker" spec="^2.2.2">
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="your usage message" />
     </plugin>
+    <plugin name="cordova-plugin-x-socialsharing" spec="^5.4.1" />
 </widget>

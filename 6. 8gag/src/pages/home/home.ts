@@ -7,6 +7,9 @@ import { SubirPage } from '../subir/subir';
 
 import { CargaArchivoProvider } from '../../providers/carga-archivo/carga-archivo';
 
+// Plugins
+import { SocialSharing } from '@ionic-native/social-sharing';
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -17,7 +20,8 @@ export class HomePage {
 
   constructor(
     private modalCtrl: ModalController,
-    public _cap: CargaArchivoProvider
+    public _cap: CargaArchivoProvider,
+    private socialSharing: SocialSharing
   ) { }
 
   mostrar_modal() {
@@ -36,6 +40,16 @@ export class HomePage {
 
       infiniteScroll.complete();
 
+    });
+
+  }
+
+  compartir( post: any ) {
+
+    this.socialSharing.shareViaWhatsApp( post.titulo, post.img, post.img ).then( () => {
+
+    }).catch( () => {
+      
     });
 
   }

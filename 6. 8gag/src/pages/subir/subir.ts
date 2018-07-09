@@ -12,8 +12,8 @@ import { CargaArchivoProvider } from '../../providers/carga-archivo/carga-archiv
 })
 export class SubirPage {
 
-  titulo: string;
-  imagenPreview: string;
+  titulo: string = '';
+  imagenPreview: string = '';
   imagen64: string;
 
   constructor(
@@ -87,7 +87,7 @@ export class SubirPage {
       titulo: this.titulo
     };
 
-    this._cap.cargar_imagen_firebase( archivo );
+    this._cap.cargar_imagen_firebase( archivo ).then( () => this.cerrar_modal() );
 
   }
 

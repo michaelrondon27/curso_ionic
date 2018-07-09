@@ -13,6 +13,8 @@ import { CargaArchivoProvider } from '../../providers/carga-archivo/carga-archiv
 })
 export class HomePage {
 
+  hayMas: boolean = true;
+
   constructor(
     private modalCtrl: ModalController,
     public _cap: CargaArchivoProvider
@@ -23,6 +25,18 @@ export class HomePage {
     let modal = this.modalCtrl.create( SubirPage );
 
     modal.present();
+
+  }
+
+  doInfinite( infiniteScroll ) {
+
+    this._cap.cargar_imagenes().then( (resp: boolean) => {
+
+      this.hayMas = resp;
+
+      infiniteScroll.complete();
+
+    });
 
   }
 

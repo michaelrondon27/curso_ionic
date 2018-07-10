@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {
-  ModalController
+  ModalController,
+  ToastController
 } from 'ionic-angular';
 
 import { SubirPage } from '../subir/subir';
@@ -21,7 +22,8 @@ export class HomePage {
   constructor(
     private modalCtrl: ModalController,
     public _cap: CargaArchivoProvider,
-    private socialSharing: SocialSharing
+    private socialSharing: SocialSharing,
+    public toastCtrl: ToastController
   ) { }
 
   mostrar_modal() {
@@ -48,9 +50,18 @@ export class HomePage {
 
     this.socialSharing.shareViaWhatsApp( post.titulo, post.img, post.img ).then( () => {
 
-    }).catch( () => {
-      
+    }).catch( (error) => {
+      this.mostrar_toast(error);
     });
+
+  }
+
+  mostrar_toast( mensaje: string ) {
+
+    this.toastCtrl.create({
+      message: mensaje,
+      duration: 2000
+    }).present();
 
   }
 

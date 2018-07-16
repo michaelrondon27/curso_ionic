@@ -11,30 +11,61 @@ export class AjustesProvider {
   }
 
   constructor(
-    private platform: Platform
+    private platform: Platform,
+    private storage: Storage
   ) {
   }
 
   cargar_storage() {
 
-    if( this.platform.is('cordova') ) {
+    let promesa = new Promise( (resolve, reject) => {
 
-    } else {
+      if( this.platform.is('cordova') ) {
 
-      // Escritorio
+        // Dispositivo
 
-      if( localStorage.getItem('ajustes') ) {
-        this.ajustes = JSON.parse( localStorage.getItem('ajustes') );
+        this.storage.ready().then( () => {
+
+          this.storage.get('ajustes').then( ajustes => {
+
+            if ( ajustes ) {
+              this.ajustes = ajustes;
+            }
+            resolve();
+
+          });
+
+        });
+
+      } else {
+
+        // Escritorio
+
+        if( localStorage.getItem('ajustes') ) {
+          this.ajustes = JSON.parse( localStorage.getItem('ajustes') );
+        }
+
+        resolve();
+
       }
 
+    });
 
-    }
+    return promesa;
 
   }
 
   guardar_storage() {
 
     if( this.platform.is('cordova') ) {
+
+      // Dispositivo
+
+      this.storage.ready().then( () => {
+
+        this.storage.set('ajustes', this.ajustes);
+
+      });
 
     } else {
 

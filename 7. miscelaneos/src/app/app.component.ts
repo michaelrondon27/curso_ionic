@@ -23,18 +23,21 @@ export class MyApp {
 
     platform.ready().then(() => {
 
-      this._ajustes.cargar_storage();
+      this._ajustes.cargar_storage().then( () => {
 
-      if ( this._ajustes.ajustes.mostrar_tutorial ) {
-        this.rootPage = "IntroduccionPage";
-      } else {
-        this.rootPage = HomePage;
-      }
+        if ( this._ajustes.ajustes.mostrar_tutorial ) {
+          this.rootPage = "IntroduccionPage";
+        } else {
+          this.rootPage = HomePage;
+        }
 
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
-      splashScreen.hide();
+        // Okay, so the platform is ready and our plugins are available.
+        // Here you can do any higher level native things you might need.
+        statusBar.styleDefault();
+        splashScreen.hide();
+
+      });
+
     });
   }
 }
